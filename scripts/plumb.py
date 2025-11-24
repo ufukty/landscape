@@ -1,7 +1,8 @@
-import argparse
-import pdfplumber
-import csv
 from typing import List
+import argparse
+import csv
+import os
+import pdfplumber
 
 
 def read_args():
@@ -11,6 +12,12 @@ def read_args():
         type=str,
         required=True,
         help="PDF file path",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        required=True,
+        help="Path to output directory, needs to exist.",
     )
     return parser.parse_args()
 
@@ -104,4 +111,5 @@ tables = filter_empty_header_cell_tables(tables)
 print_table_headers(tables)
 
 for i, table in enumerate(tables):
-    write_table(f"{args.input.replace(".pdf", "")}.table{i}.csv", table)
+    base = os.path.basename(args.input).replace(".pdf", "")
+    write_table(f"{args.output_dir}/{base}.table{i}.csv", table)
