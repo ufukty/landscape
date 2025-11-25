@@ -93,11 +93,25 @@ def print_table_headers(tables):
         print(f"#{i} [ {" | ".join(table[0])} ] rows={len(table) - 1}")
 
 
-def write_table(dst, table):
+def write_table_csv(dst, table):
     with open(dst, "w", newline="", encoding="utf-8") as output:
         writer = csv.writer(output)
         for row in table:
             writer.writerow(row)
+
+
+import json
+
+
+def write_table_json(dst, table):
+    j = []
+    for row in table[1:]:
+        o = {}
+        for i, column in enumerate(row):
+            o[table[0][i]] = column
+        j.append(o)
+    with open(dst, "w", newline="", encoding="UTF-8") as output:
+        json.dump(j, output)
 
 
 args = read_args()
@@ -112,4 +126,5 @@ print_table_headers(tables)
 
 for i, table in enumerate(tables):
     base = os.path.basename(args.input).replace(".pdf", "")
-    write_table(f"{args.output_dir}/{base}.table{i}.csv", table)
+    write_table_csv(f"{args.output_dir}/{base}.table{i}.csv", table)
+    write_table_json(f"{args.output_dir}/{base}.table{i}.json", table)
