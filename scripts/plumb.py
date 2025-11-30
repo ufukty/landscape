@@ -64,11 +64,13 @@ def continued_tables(tables: List[List[List[List[str | None]]]]):
     contd_tables: List[List[List[List[str | None]]]] = [[]]
     last_table_header = []
     for table in tables:
-        for j, row in enumerate(table):
-            if j == 0 and row != last_table_header:
-                last_table_header = row
-                contd_tables.append([])
-            contd_tables[-1].append(row)
+        header, content = table[0], table[1:]
+        if header == last_table_header:
+            contd_tables[-1].extend(content)
+        else:
+            last_table_header = header
+            contd_tables.append(table)
+
     return contd_tables
 
 
