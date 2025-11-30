@@ -127,4 +127,3 @@ print_table_headers(tables)
 for i, table in enumerate(tables):
     base = os.path.basename(args.input).replace(".pdf", "")
     write_table_csv(f"{args.output_dir}/{base}.table{i}.csv", table)
-    write_table_json(f"{args.output_dir}/{base}.table{i}.json", table)
