@@ -102,20 +102,6 @@ def write_table_csv(dst, table):
             writer.writerow(row)
 
 
-import json
-
-
-def write_table_json(dst, table):
-    j = []
-    for row in table[1:]:
-        o = {}
-        for i, column in enumerate(row):
-            o[table[0][i]] = column
-        j.append(o)
-    with open(dst, "w", newline="", encoding="UTF-8") as output:
-        json.dump(j, output)
-
-
 args = read_args()
 tables = read_tables(args.input)
 tables = stringify_cells(tables)
