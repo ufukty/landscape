@@ -56,7 +56,7 @@ def reverse_line_wrap(tables) -> List[List[List[List[str | None]]]]:
     for i, table in enumerate(tables):
         for j, row in enumerate(table):
             for k, cell in enumerate(row):
-                tables[i][j][k] = cell.replace("\r\n", "\n").replace("\n", " " if j == 0 else ", ")
+                tables[i][j][k] = cell.replace("\r\n", "\n").replace("\n", " " if j == 0 else "; ")
     return tables
 
 
